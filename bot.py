@@ -1,8 +1,17 @@
+import sys
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
+
+# Windows terminal UTF-8 sozlamasi
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+        sys.stderr.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 from config import BOT_TOKEN
 from handlers import start, gifs, emojis, stickers, random_content, inline
@@ -41,10 +50,10 @@ async def main():
 
     bot_info = await bot.get_me()
     logger.info(f"Bot muvaffaqiyatli ishga tushdi: @{bot_info.username}")
-    print(f"\n===========================================")
-    print(f"✅ Bot ishga tushdi: @{bot_info.username}")
-    print(f"👉 Telegramda botni ochish: https://t.me/{bot_info.username}")
-    print(f"===========================================\n")
+    print("\n===========================================")
+    print(f"[OK] Bot ishga tushdi: @{bot_info.username}")
+    print(f"--> Telegramda botni ochish: https://t.me/{bot_info.username}")
+    print("===========================================\n")
 
     try:
         await dp.start_polling(bot)
