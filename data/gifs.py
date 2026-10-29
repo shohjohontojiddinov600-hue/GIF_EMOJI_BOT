@@ -12,7 +12,7 @@ CURATED_GIFS: Dict[str, List[str]] = {
         "https://media.giphy.com/media/lOadmkNRBxvlLf03KD/giphy.gif",
     ],
     "sevgi": [
-        "https://media.giphy.com/media/26BRv0ThflsDTqUXa/giphy.gif",
+        "https://media.giphy.com/media/R6gVNROjBy4UM/giphy.gif",
         "https://media.giphy.com/media/OpfkuToK5NLig/giphy.gif",
         "https://media.giphy.com/media/l4pTdcifPZLpDjL1e/giphy.gif",
         "https://media.giphy.com/media/3o7TKoWXm3okO1kgHC/giphy.gif",
@@ -46,7 +46,7 @@ CURATED_GIFS: Dict[str, List[str]] = {
     ],
     "anime": [
         "https://media.giphy.com/media/26gR2f01UTtnjWNsQ/giphy.gif",
-        "https://media.giphy.com/media/11ISwbgCxEzMyY/giphy.gif",
+        "https://media.giphy.com/media/yeWfE4tQAya28Hxwxj/giphy.gif",
         "https://media.giphy.com/media/kbuQOkUefLRqLuwQRVV/giphy.gif",
         "https://media.giphy.com/media/3oz8xAFtqoOUUrsh7W/giphy.gif",
     ]

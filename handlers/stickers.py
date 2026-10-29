@@ -1,5 +1,11 @@
 from aiogram import Router, F
-from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import (
+    Message, 
+    CallbackQuery, 
+    InlineKeyboardMarkup, 
+    InlineKeyboardButton,
+    LinkPreviewOptions
+)
 from keyboards.menu import get_stickers_menu
 from data.stickers import POPULAR_STICKER_PACKS, format_sticker_info
 
@@ -31,11 +37,18 @@ async def list_sticker_packs(callback: CallbackQuery):
         InlineKeyboardButton(text="⬅️ Stiker menyusi", callback_data="back_to_sticker_menu")
     ])
     
-    await callback.message.edit_text(
-        text, 
-        reply_markup=InlineKeyboardMarkup(inline_keyboard=keyboard),
-        parse_mode="HTML"
-    )
+    try:
+        await callback.message.edit_text(
+            text, 
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=keyboard),
+            parse_mode="HTML"
+        )
+    except Exception:
+        await callback.message.answer(
+            text, 
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=keyboard),
+            parse_mode="HTML"
+        )
     await callback.answer()
 
 @router.callback_query(F.data == "sticker_id_info")
@@ -52,7 +65,10 @@ async def info_sticker_id(callback: CallbackQuery):
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="⬅️ Orqaga", callback_data="back_to_sticker_menu")]
     ])
-    await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
+    try:
+        await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
+    except Exception:
+        await callback.message.answer(text, reply_markup=kb, parse_mode="HTML")
     await callback.answer()
 
 @router.callback_query(F.data == "back_to_sticker_menu")
@@ -61,7 +77,10 @@ async def back_to_sticker_menu(callback: CallbackQuery):
         "🎭 <b>Stikerlar Bo'limi!</b>\n\n"
         "Kerakli bo'limni tanlang yoki botga to'g'ridan-to'g'ri stiker yuboring:"
     )
-    await callback.message.edit_text(text, reply_markup=get_stickers_menu(), parse_mode="HTML")
+    try:
+        await callback.message.edit_text(text, reply_markup=get_stickers_menu(), parse_mode="HTML")
+    except Exception:
+        await callback.message.answer(text, reply_markup=get_stickers_menu(), parse_mode="HTML")
     await callback.answer()
 
 @router.message(F.sticker)
@@ -76,4 +95,9 @@ async def handle_incoming_sticker(message: Message):
             [InlineKeyboardButton(text="📥 To'plamni qo'shish", url=f"https://t.me/addstickers/{sticker.set_name}")]
         ])
     
-    await message.reply(info_text, reply_markup=kb, parse_mode="HTML", disable_web_page_preview=True)
+    await message.reply(
+        info_text, 
+        reply_markup=kb, 
+        parse_mode="HTML", 
+        link_preview_options=LinkPreviewOptions(is_disabled=True)
+    )

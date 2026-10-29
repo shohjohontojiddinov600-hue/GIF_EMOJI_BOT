@@ -34,7 +34,10 @@ async def handle_emoji_art(callback: CallbackQuery):
             InlineKeyboardButton(text="⬅️ Emojilar menyusi", callback_data="back_to_emoji_menu")
         ]
     ])
-    await callback.message.answer(text, reply_markup=kb, parse_mode="HTML")
+    try:
+        await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
+    except Exception:
+        await callback.message.answer(text, reply_markup=kb, parse_mode="HTML")
     await callback.answer()
 
 @router.callback_query(F.data == "emoji_combo")
@@ -51,7 +54,10 @@ async def handle_emoji_combo(callback: CallbackQuery):
             InlineKeyboardButton(text="⬅️ Emojilar menyusi", callback_data="back_to_emoji_menu")
         ]
     ])
-    await callback.message.answer(text, reply_markup=kb, parse_mode="HTML")
+    try:
+        await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
+    except Exception:
+        await callback.message.answer(text, reply_markup=kb, parse_mode="HTML")
     await callback.answer()
 
 @router.callback_query(F.data.startswith("emoji_cat:"))
@@ -76,7 +82,10 @@ async def handle_emoji_category(callback: CallbackQuery):
             InlineKeyboardButton(text="⬅️ Menyuga qaytish", callback_data="back_to_emoji_menu")
         ]
     ])
-    await callback.message.answer(text, reply_markup=kb, parse_mode="HTML")
+    try:
+        await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
+    except Exception:
+        await callback.message.answer(text, reply_markup=kb, parse_mode="HTML")
     await callback.answer()
 
 @router.callback_query(F.data == "back_to_emoji_menu")
@@ -85,5 +94,8 @@ async def back_to_emoji_menu(callback: CallbackQuery):
         "😀 <b>Emojilar bo'limi:</b>\n\n"
         "O'zingizga ma'qul bo'lgan toifani tanlang:"
     )
-    await callback.message.edit_text(text, reply_markup=get_emoji_menu(), parse_mode="HTML")
+    try:
+        await callback.message.edit_text(text, reply_markup=get_emoji_menu(), parse_mode="HTML")
+    except Exception:
+        await callback.message.answer(text, reply_markup=get_emoji_menu(), parse_mode="HTML")
     await callback.answer()

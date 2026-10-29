@@ -1,8 +1,10 @@
 @echo off
+chcp 65001 >nul
 setlocal
-echo ==============================================
+echo ==============================================================
 echo Loyihani GitHub-ga yuklash (Push qilish)...
-echo ==============================================
+echo Repozitoriy: https://github.com/shohjohontojiddinov600-hue/GIF_EMOJI_BOT.git
+echo ==============================================================
 
 set "GIT_PATH=%LOCALAPPDATA%\Programs\Git\cmd\git.exe"
 if exist "%GIT_PATH%" (
@@ -13,18 +15,28 @@ if exist "%GIT_PATH%" (
 
 "%GIT_CMD%" config --get user.name >nul 2>&1
 if errorlevel 1 (
-    "%GIT_CMD%" config --global user.name "Shohjohon Tojiddinov"
-    "%GIT_CMD%" config --global user.email "shohjohon@users.noreply.github.com"
+    "%GIT_CMD%" config --global user.name "shohjohontojiddinov600-hue"
+    "%GIT_CMD%" config --global user.email "shohjohontojiddinov600@gmail.com"
 )
 
-"%GIT_CMD%" init
-"%GIT_CMD%" branch -M main
-"%GIT_CMD%" remote remove origin 2>nul
-"%GIT_CMD%" remote add origin https://github.com/shohjohontojiddinov600-hue/GIF_EMOJI_BOT.git
+echo.
+echo 1. O'zgarishlar Git-ga saqlanmoqda...
 "%GIT_CMD%" add .
-"%GIT_CMD%" commit -m "Initial commit: Telegram GIF, Emoji va Stikerlar boti yaratildi"
+"%GIT_CMD%" commit -m "Yangilanishlar va xatoliklar tuzatildi: GIF havolalari, animatsiya navigatsiyasi va menyular" 2>nul
+
+echo.
+echo 2. GitHub-ga push qilinmoqda...
+echo (Agar brauzerda darcha ochilsa, GitHub akkauntingizga kirishni tasdiqlang)
 "%GIT_CMD%" push -u origin main
 
 echo.
-echo Amal bajarildi!
+echo ==============================================================
+if errorlevel 1 (
+    echo [XATOLIK] GitHub-ga yuklashda xatolik yuz berdi.
+    echo Agar Personal Access Token (PAT) yoki parol so'ralsa, uni kiriting.
+) else (
+    echo [MUVAFFAQIYATLI] Barcha kodlar GitHub-ga muvaffaqiyatli yuklandi!
+)
+echo ==============================================================
+echo.
 pause
